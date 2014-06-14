@@ -39,7 +39,11 @@ static char *format_line(Screen *screen, char *str) {
     snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%ld", fobj->len);
     p = replace_string(p, "%L", tmp);
 
-    snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%ld", (fobj->pos / fobj->len));
+    if ((fobj->pos >= 0) && (fobj->len > 0)) {
+        snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%ld", (fobj->pos / fobj->len));
+    } else {
+        snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%ld", 0);
+    }
     p = replace_string(p, "%PL", tmp);
 
     return p;
