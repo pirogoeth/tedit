@@ -11,6 +11,11 @@
 #include "screen.h"
 #include "statusline.h"
 
+void kill_window(Screen *screen, int i) {
+    screen_deinit(screen);
+    screen_close(screen);
+}
+
 int main(int argc, char *argv[]) {
     char *filepath;
     filepath = argv[1];
@@ -30,6 +35,8 @@ int main(int argc, char *argv[]) {
     screen_set_active_fmanager(screen, tfm);
 
     Keybinder *kb = keybinder_create(screen);
+    keybinding_create(kb, 'x', kill_window);
+
     Statusline *sl = statusline_create(screen);
 
     screen_init(screen);

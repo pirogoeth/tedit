@@ -21,7 +21,8 @@ Keybinder *keybinder_create(Screen *screen) {
 Keybinding *keybinding_create(Keybinder *kb, char key, void (*callback)(Screen *, int)) {
     assert(kb != NULL);
 
-    int keyint = CHARKEY(key);
+//    int keyint = CHARKEY(key);
+    int keyint = (int) key;
 
     return keybinding_create_raw(kb, keyint, callback);
 }
