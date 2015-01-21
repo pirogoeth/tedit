@@ -12,6 +12,8 @@
 #define BUFFER_BLOCK_LEN 2048
 #define BUFFER_READ_BLOCKS 8
 
+typedef struct MappedBuffer MappedBuffer;
+
 typedef struct MappedBuffer {
     char *buf;
     int length;
@@ -22,7 +24,7 @@ typedef struct MappedBuffer {
 } MappedBuffer;
 
 MappedBuffer *buffer_open(TFile *fobj);
-void buffer_close(MappedBuffer *chain, int write);
+void buffer_close(MappedBuffer *chain);
 
 void buffer_write(MappedBuffer *chain);
 void buffer_read(MappedBuffer *chain);

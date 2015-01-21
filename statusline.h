@@ -18,7 +18,7 @@ typedef struct Statusline {
     int row;
 } Statusline;
 
-static char *replace_string(char *orig, char *from, char *to);
+static char *replace_string(char *str, char *dest, char *src);
 static char *format_line(Screen *screen, char *str);
 
 Statusline *statusline_create(Screen *screen);

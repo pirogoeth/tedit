@@ -132,7 +132,7 @@ int file_attach(TFManager *tfm, TFile *fobj) {
 
     tfm->files = files;
 
-    fobj->lpos = tfm->open; // set the file's array position
+    fobj->lpos = ++tfm->open; // set the file's array position
 
     free(&tfm->files[tfm->open]); // XXX - should we verify the space is free before allocating it? is this necessary?
     tfm->files[tfm->open] = *fobj;

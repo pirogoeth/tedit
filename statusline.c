@@ -8,19 +8,19 @@
 #include "screen.h"
 #include "futil.h"
 
-static char *replace_string(char *orig, char *from, char *to) {
+static char *replace_string(char *str, char *src, char *dest) {
     char *p;
 
-    if (!(p = strstr(orig, from))) {
-        return orig;
+    if (!(p = strstr(str, src))) {
+        return str;
     }
 
     static char buffer[4096];
 
-    strncpy(buffer, orig, p-orig);
-    buffer[p-orig] = '\0';
+    strncpy(buffer, str, p - str);
+    buffer[p - str] = '\0';
 
-    sprintf(buffer+(p-orig), "%s%s", to, p+strlen(from));
+    sprintf(buffer + (p - str), "%s%s", dest, p + strlen(src));
 
     return buffer;
 }
@@ -42,7 +42,7 @@ static char *format_line(Screen *screen, char *str) {
     if ((fobj->pos >= 0) && (fobj->len > 0)) {
         snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%ld", (fobj->pos / fobj->len));
     } else {
-        snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%ld", 0);
+        snprintf(tmp, (CHAR_BIT * sizeof(int) - 1) / 3 + 2, "%d", 0);
     }
     p = replace_string(p, "%PL", tmp);
 

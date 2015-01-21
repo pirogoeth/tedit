@@ -6,6 +6,7 @@
 #include <ncurses.h>
 #include <unistd.h>
 
+#include "buffer.h"
 #include "futil.h"
 #include "keybinds.h"
 #include "screen.h"
@@ -32,6 +33,7 @@ int main(int argc, char *argv[]) {
     Keybinder *kb = keybinder_create(screen);
 
     Statusline *sl = statusline_create(screen);
+    MappedBuffer *bufchain = buffer_open(infile);
 
     screen_init(screen);
 

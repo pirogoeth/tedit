@@ -20,20 +20,20 @@ MappedBuffer *buffer_open(TFile *fobj) {
     head->fobj = fobj;
     head->buf = (char *) malloc(BUFFER_BLOCK_LEN);
     // Read data into buffer and set buffer length.
-    head->length = read(fobj->fp, head->buf, BUFFER_BLOCK_LEN);
+    head->length = read(fobj->fp->_file, head->buf, BUFFER_BLOCK_LEN);
 
     if (head->length < BUFFER_BLOCK_LEN) { // Did not read full chunk.
         return head;
     }
 
     // We read a full chunk, we need to keep adding and add to the chain.
-    while (1) {
+    for (int i = 1; i < BUFFER_READ_BLOCKS; i++) { // Start at 1 because the head counts as a buffer block.
         // Allocate the next link.
         MappedBuffer *link = (MappedBuffer *) malloc(sizeof(MappedBuffer));
         // Set the new link members.
         link->fobj = fobj;
         link->buf = (char *) malloc(BUFFER_BLOCK_LEN);
-        link->length = read(fobj->fp, link->buf, BUFFER_BLOCK_LEN);
+        link->length = read(fobj->fp->_file, link->buf, BUFFER_BLOCK_LEN);
 
         // Insert the new link at the end of the chain.
         buffer_insert_tail(head, link);
@@ -43,6 +43,8 @@ MappedBuffer *buffer_open(TFile *fobj) {
             break;
         }
     }
+    
+    return head;
 }
 
 void buffer_close(MappedBuffer *chain) {
