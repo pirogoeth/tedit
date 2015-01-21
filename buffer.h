@@ -26,7 +26,7 @@ typedef struct MappedBuffer {
 MappedBuffer *buffer_open(TFile *fobj);
 void buffer_close(MappedBuffer *chain);
 
-void buffer_write(MappedBuffer *chain);
+int buffer_write(MappedBuffer *chain);
 void buffer_read(MappedBuffer *chain);
 
 MappedBuffer *buffer_find_head(MappedBuffer *buf);
