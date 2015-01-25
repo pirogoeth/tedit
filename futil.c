@@ -23,6 +23,9 @@ TFile *file_open(const char *filename) {
                 fobj->len = 0;
                 fobj->pos = 0;
                 fobj->modified = TRUE;
+                fobj->filepath = filename;
+
+                return fobj;
             }
         } else {
             abort(); // XXX - handle EACCES, EISDIR, etc.
