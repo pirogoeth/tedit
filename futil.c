@@ -96,7 +96,7 @@ time_t file_get_mtime(const char *filename) {
                 return -1;
         }
     } else {
-        mtac = statent.st_mtim.tv_sec; // set our modified time metadata so we can determine later if the file has changed
+        mtac = statent.st_mtime; // set our modified time metadata so we can determine later if the file has changed
     }
 
     return mtac;
